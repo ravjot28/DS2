@@ -266,14 +266,26 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
 				<%
 					} catch (Exception e) {
 									System.out.println("Error opening connection");
-								}
+								}finally {
+						 			try {
+						 				newuserconn.close();
+						 			} catch (Exception e) {
+						 				System.out.println("During Close " + e.getMessage());
+						 			}
+						 		}
 
 							}
 
 						} // Connect to mysql db
 						catch (Exception e) {
 							System.out.println("Error opening connection");
-						}
+						}finally {
+				 			try {
+				 				conn.close();
+				 			} catch (Exception e) {
+				 				System.out.println("During Close " + e.getMessage());
+				 			}
+				 		}
 					} else // this is executed if all of the required fields were not created
 					{
 				%>

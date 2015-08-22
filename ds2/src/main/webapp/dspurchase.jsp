@@ -99,6 +99,7 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 				</TR>
 				<%
 					netamount = netamount + Integer.parseInt(quan[i]) * Float.parseFloat(price);
+									conn.close();
 
 								} catch (Exception e) {
 									e.printStackTrace();
@@ -211,7 +212,7 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 				</TR>
 				<%
 					netamount = netamount + Integer.parseInt(quan[i]) * Float.parseFloat(price);
-
+								conn.close();
 							} catch (Exception e) {
 
 								System.out.println("Error opening connection");
@@ -323,6 +324,7 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 									c_insert = c_insert + "( " + customerid + "," + orderid + "," + item[h] + "),";
 								}
 								h = h + 1;
+								quanconn.close();
 							} // End of while (!empty)
 
 							p_query = p_query.substring(0, p_query.length() - 1) + ";";
@@ -389,6 +391,12 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 			<%
 				} catch (Exception e) {
 								e.printStackTrace();
+							} finally {
+								try {
+									queryconn.close();
+								} catch (Exception e) {
+									System.out.println("During Close " + e.getMessage());
+								}
 							}
 						} else {
 			%>
@@ -400,6 +408,12 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 
 						System.out.println("Error opening connection");
 
+					} finally {
+						try {
+							orderconn.close();
+						} catch (Exception e) {
+							System.out.println("During Close " + e.getMessage());
+						}
 					}
 
 				}

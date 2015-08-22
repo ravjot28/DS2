@@ -11,7 +11,8 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 <%@ page import="java.io.*"%>
 <%@ page import="java.lang.*"%>
 
-<%@ page language="java" import="java.sql.*, java.math.*, java.io.*,com.ds2.*"%>
+<%@ page language="java"
+	import="java.sql.*, java.math.*, java.io.*,com.ds2.*"%>
 
 <HTML>
 <HEAD>
@@ -28,7 +29,7 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
  	{
  		Connection conn = null;
  		try {
- 		
+
  			conn = DBUtils.getInstanct().getConnection();
  			String query = "select CUSTOMERID FROM DS2.CUSTOMERS where USERNAME='" + username
  					+ "' and PASSWORD='" + password + "';";
@@ -122,7 +123,13 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 						System.out.println("Ravjot " + e.getMessage());
 						System.out.println("Error opening connection");
 
-					} 
+					} finally {
+						try {
+							conn.close();
+						} catch (Exception e) {
+							System.out.println("During Close " + e.getMessage());
+						}
+					}
 				} // end if username not null
 				else // if no username, then must be first entry to site - give them the logon screen
 				{

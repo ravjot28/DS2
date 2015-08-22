@@ -81,8 +81,8 @@ It also collects selected items into a list and allows customer to purchase them
 				<%if (browsetype == "actor") {%> CHECKED <%}%>>Actor <INPUT
 				NAME='browse_actor' VALUE='<%=browse_actor%>' TYPE=TEXT SIZE=15>
 			<BR> <INPUT NAME='browsetype' TYPE=RADIO VALUE='category'
-				<%if (browsetype == "category") {%> CHECKED <%}%>>Category
-			<SELECT NAME='browse_category'>
+				<%if (browsetype == "category") {%> CHECKED <%}%>>Category <SELECT
+				NAME='browse_category'>
 				<%
 					int j;
 						for (int i = 0; i < categories.length; i++) // loop to create category dropdown
@@ -186,8 +186,7 @@ It also collects selected items into a list and allows customer to purchase them
 			<BR> <INPUT TYPE=HIDDEN NAME='customerid' VALUE=<%=customerid%>>
 			<%
 				for (int i = 0; i < item_length; i++) {
-			%><INPUT TYPE=HIDDEN
-				NAME='item' VALUE=<%=item[i]%>>
+			%><INPUT TYPE=HIDDEN NAME='item' VALUE=<%=item[i]%>>
 			<%
 				}
 			%>
@@ -200,7 +199,13 @@ It also collects selected items into a list and allows customer to purchase them
 
  			System.out.println("Error opening connection");
 
- 		} 
+ 		} finally {
+ 			try {
+ 				conn.close();
+ 			} catch (Exception e) {
+ 				System.out.println("During Close " + e.getMessage());
+ 			}
+ 		}
 
  	} // end of if browsetype not equal to null
 
@@ -238,7 +243,13 @@ It also collects selected items into a list and allows customer to purchase them
 
 								System.out.println("Error opening connection");
 
-							} 
+							} finally {
+					 			try {
+					 				conn.close();
+					 			} catch (Exception e) {
+					 				System.out.println("During Close " + e.getMessage());
+					 			}
+					 		}
 						}
 				%>
 			</TABLE>
@@ -246,13 +257,13 @@ It also collects selected items into a list and allows customer to purchase them
 			<INPUT TYPE=HIDDEN NAME='num_of_items' VALUE=<%=new_item_length%>>
 			<%
 				for (int i = 0; i < new_item_length; i++) {
-			%><INPUT TYPE=HIDDEN
-				NAME='item' VALUE=<%=new_item[i]%>>
+			%><INPUT TYPE=HIDDEN NAME='item' VALUE=<%=new_item[i]%>>
 			<%
 				}
 			%>
 			<INPUT TYPE=SUBMIT VALUE='Checkout'>
-		</FORM> <%
+		</FORM> 
+		<%
  	}
  %>
 		<HR>
