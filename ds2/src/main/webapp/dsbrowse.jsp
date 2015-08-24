@@ -202,6 +202,7 @@ It also collects selected items into a list and allows customer to purchase them
  		} finally {
  			try {
  				conn.close();
+ 				conn=null;
  			} catch (Exception e) {
  				System.out.println("During Close " + e.getMessage());
  			}
@@ -246,6 +247,7 @@ It also collects selected items into a list and allows customer to purchase them
 							} finally {
 					 			try {
 					 				conn.close();
+					 				conn=null;
 					 			} catch (Exception e) {
 					 				System.out.println("During Close " + e.getMessage());
 					 			}

@@ -269,6 +269,7 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
 								}finally {
 						 			try {
 						 				newuserconn.close();
+						 				newuserconn = null;
 						 			} catch (Exception e) {
 						 				System.out.println("During Close " + e.getMessage());
 						 			}
@@ -282,6 +283,7 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
 						}finally {
 				 			try {
 				 				conn.close();
+				 				conn=null;
 				 			} catch (Exception e) {
 				 				System.out.println("During Close " + e.getMessage());
 				 			}

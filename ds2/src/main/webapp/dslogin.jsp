@@ -126,6 +126,7 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 					} finally {
 						try {
 							conn.close();
+							conn = null;
 						} catch (Exception e) {
 							System.out.println("During Close " + e.getMessage());
 						}
