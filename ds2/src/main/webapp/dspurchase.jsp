@@ -99,8 +99,12 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 				</TR>
 				<%
 					netamount = netamount + Integer.parseInt(quan[i]) * Float.parseFloat(price);
+									purchasequeryStatement.close();
+									purchasequeryResult.close();
+									purchasequeryStatement = null;
+									purchasequeryResult = null;
 									conn.close();
-									conn=null;
+									conn = null;
 								} catch (Exception e) {
 									e.printStackTrace();
 
@@ -212,6 +216,10 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 				</TR>
 				<%
 					netamount = netamount + Integer.parseInt(quan[i]) * Float.parseFloat(price);
+					purchasequeryStatement.close();
+					purchasequeryResult.close();
+					purchasequeryResult = null;
+					purchasequeryStatement = null;
 								conn.close();
 								conn = null;
 							} catch (Exception e) {
@@ -325,6 +333,10 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 									c_insert = c_insert + "( " + customerid + "," + orderid + "," + item[h] + "),";
 								}
 								h = h + 1;
+								quanquery.close();
+								quanResult.close();
+								quanquery = null;
+								quanResult = null;
 								quanconn.close();
 								quanconn = null;
 							} // End of while (!empty)
@@ -341,6 +353,11 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 							} else {
 								orderconn.rollback();
 							}
+							
+							purchaseupdateStatement.close();
+							orderIDResult.close();
+							purchaseupdateStatement = null;
+							orderIDResult = null;
 						} //end of try for order entry transaction
 						catch (SQLException e) // if any SQL exceptions were thrown, rollback
 						{
@@ -377,6 +394,10 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 								int creditcardtype = ccqueryResult.getInt("CREDITCARDTYPE");
 								String creditcard = ccqueryResult.getString("CREDITCARD");
 								String creditcardexpiration = ccqueryResult.getString("CREDITCARDEXPIRATION");
+								ccqueryStatement.close();
+								ccqueryResult.close();
+								ccqueryResult=  null;
+								ccqueryStatement = null;
 			%>
 			<H3>
 				$<%=totalamount%>

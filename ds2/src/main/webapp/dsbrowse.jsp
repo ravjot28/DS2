@@ -193,7 +193,10 @@ It also collects selected items into a list and allows customer to purchase them
 			<INPUT TYPE=SUBMIT VALUE='Update Shopping Cart'>
 		</FORM> <%
  	} // end of else
-
+ 			browseStatement.close();
+ 			browseResult.close();
+ 			browseStatement = null;
+ 			browseResult = null;
  		} catch (Exception e) {
  			System.out.println("Ravjot " + e.getMessage());
 
@@ -201,8 +204,9 @@ It also collects selected items into a list and allows customer to purchase them
 
  		} finally {
  			try {
+
  				conn.close();
- 				conn=null;
+ 				conn = null;
  			} catch (Exception e) {
  				System.out.println("During Close " + e.getMessage());
  			}
@@ -228,12 +232,16 @@ It also collects selected items into a list and allows customer to purchase them
 							query = "select TITLE from PRODUCTS where PROD_ID=" + new_item[i] + ";";
 							Connection conn = null;
 							try {
-								
+
 								conn = DBUtils.getInstanct().getConnection();
 								Statement titlebrowseStatement = conn.createStatement();
 								ResultSet titlebrowseResult = titlebrowseStatement.executeQuery(query);
 								titlebrowseResult.next();
 								title = titlebrowseResult.getString("TITLE");
+								titlebrowseStatement.close();
+								titlebrowseResult.close();
+								titlebrowseStatement = null;
+								titlebrowseResult = null;
 				%>
 				<TD><%=j%></TD>
 				<TD><%=title%></TD>
@@ -245,13 +253,13 @@ It also collects selected items into a list and allows customer to purchase them
 								System.out.println("Error opening connection");
 
 							} finally {
-					 			try {
-					 				conn.close();
-					 				conn=null;
-					 			} catch (Exception e) {
-					 				System.out.println("During Close " + e.getMessage());
-					 			}
-					 		}
+								try {
+									conn.close();
+									conn = null;
+								} catch (Exception e) {
+									System.out.println("During Close " + e.getMessage());
+								}
+							}
 						}
 				%>
 			</TABLE>
@@ -264,8 +272,7 @@ It also collects selected items into a list and allows customer to purchase them
 				}
 			%>
 			<INPUT TYPE=SUBMIT VALUE='Checkout'>
-		</FORM> 
-		<%
+		</FORM> <%
  	}
  %>
 		<HR>

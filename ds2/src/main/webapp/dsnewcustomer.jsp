@@ -255,6 +255,7 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
  					userInsertResult.next();
  					String customerid = userInsertResult.getString(1); // get autocreated customerid into string
  																		// it is passed below as a hidden value to next page
+ 					
  %>
 		<H2>
 			New Customer Successfully Added. Click below to begin shopping
@@ -266,28 +267,31 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
 				<%
 					} catch (Exception e) {
 									System.out.println("Error opening connection");
-								}finally {
-						 			try {
-						 				newuserconn.close();
-						 				newuserconn = null;
-						 			} catch (Exception e) {
-						 				System.out.println("During Close " + e.getMessage());
-						 			}
-						 		}
+								} finally {
+									try {
+										newuserconn.close();
+										newuserconn = null;
+									} catch (Exception e) {
+										System.out.println("During Close " + e.getMessage());
+									}
+								}
 
 							}
-
+							userqueryStatement.close();
+							userqueryResult.close();
+							userqueryStatement = null;
+							userqueryResult = null;
 						} // Connect to mysql db
 						catch (Exception e) {
 							System.out.println("Error opening connection");
-						}finally {
-				 			try {
-				 				conn.close();
-				 				conn=null;
-				 			} catch (Exception e) {
-				 				System.out.println("During Close " + e.getMessage());
-				 			}
-				 		}
+						} finally {
+							try {
+								conn.close();
+								conn = null;
+							} catch (Exception e) {
+								System.out.println("During Close " + e.getMessage());
+							}
+						}
 					} else // this is executed if all of the required fields were not created
 					{
 				%>

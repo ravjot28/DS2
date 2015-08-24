@@ -86,6 +86,8 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 				<%
 					prevproddetail_queryStatement.close();
 										relatedprod_queryStatement.close();
+										prevproddetail_queryStatement = null;
+										relatedprod_queryStatement = null;
 									} while (prevprod_queryResult.next()); // end while for populating table with recommended other items
 				%>
 			
@@ -116,6 +118,9 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 
 						try {
 							userqueryStatement.close();
+							userqueryResult.close();
+							userqueryStatement = null;
+							userqueryResult = null;
 						} catch (Exception e) {
 							System.out.println("Error closing statement");
 						}
