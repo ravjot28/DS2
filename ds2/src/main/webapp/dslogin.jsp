@@ -84,15 +84,22 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 				<TD><%=prev_actor%></TD>
 				<TD><%=recommend_title%></TD>
 				<%
-					prevproddetail_queryStatement.close();
-										relatedprod_queryStatement.close();
-										prevproddetail_queryStatement = null;
-										relatedprod_queryStatement = null;
-									} while (prevprod_queryResult.next()); // end while for populating table with recommended other items
+					} while (prevprod_queryResult.next()); // end while for populating table with recommended other items
+									prevproddetail_queryStatement.close();
+									prevproddetailResult.close();
+									relatedprod_queryStatement.close();
+									relatedprodResult.close();
+
+									prevproddetail_queryStatement = null;
+									prevproddetailResult = null;
+									relatedprod_queryStatement = null;
+									relatedprodResult = null;
 				%>
 			
 		</TABLE> <BR> <%
  	} // end if customer has previous purchases
+ 				prevpod_queryStatement.close();
+ 				prevprod_queryResult.close();
  %>
 		<FORM ACTION="./dsbrowse.jsp" METHOD=GET>
 			<INPUT TYPE=HIDDEN NAME=customerid VALUE=<%=customerid%>> <INPUT
@@ -117,6 +124,7 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 				} // end else
 
 						try {
+
 							userqueryStatement.close();
 							userqueryResult.close();
 							userqueryStatement = null;
