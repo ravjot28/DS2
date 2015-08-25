@@ -9,7 +9,7 @@ It also collects selected items into a list and allows customer to purchase them
 -->
 
 <%@ page language="java"
-	import="java.sql.*, java.math.*, java.io.*, java.text.*,com.ds2.* "%>
+	import="java.sql.*, java.math.*, java.io.*, java.text.* "%>
 
 <HTML>
 <HEAD>
@@ -128,7 +128,8 @@ It also collects selected items into a list and allows customer to purchase them
  	{
  		Connection conn = null;
  		try {
- 			conn = DBUtils.getInstanct().getConnection();
+ 			Class.forName("com.mysql.jdbc.Driver");
+ 			conn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
  			String browse_query = ""; // init string variable
  			switch (browsetype.charAt(0)) // switch on browsetype that was selected
  			{
@@ -198,7 +199,11 @@ It also collects selected items into a list and allows customer to purchase them
  			browseStatement = null;
  			browseResult = null;
  		} catch (Exception e) {
- 			System.out.println("Ravjot " + e.getMessage());
+ 			System.out.println("In dsbrowse");
+ 			
+ 			for (StackTraceElement ste : e.getStackTrace()) {
+ 			    System.out.println(ste);
+ 			}
 
  			System.out.println("Error opening connection");
 
@@ -232,8 +237,8 @@ It also collects selected items into a list and allows customer to purchase them
 							query = "select TITLE from PRODUCTS where PROD_ID=" + new_item[i] + ";";
 							Connection conn = null;
 							try {
-
-								conn = DBUtils.getInstanct().getConnection();
+								Class.forName("com.mysql.jdbc.Driver");
+								conn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
 								Statement titlebrowseStatement = conn.createStatement();
 								ResultSet titlebrowseResult = titlebrowseStatement.executeQuery(query);
 								titlebrowseResult.next();
@@ -248,8 +253,12 @@ It also collects selected items into a list and allows customer to purchase them
 				</TR>
 				<%
 					} catch (Exception e) {
-								System.out.println("Ravjot " + e.getMessage());
-
+								System.out.println("In dsbrowse1");
+					 			
+					 			for (StackTraceElement ste : e.getStackTrace()) {
+					 			    System.out.println(ste);
+					 			}
+								
 								System.out.println("Error opening connection");
 
 							} finally {

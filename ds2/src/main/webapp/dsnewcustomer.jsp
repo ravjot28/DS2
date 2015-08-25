@@ -8,7 +8,7 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
 
 
 <%@ page language="java"
-	import="java.sql.*, java.math.*, java.io.*, java.text.*, com.ds2.* "%>
+	import="java.sql.*, java.math.*, java.io.*, java.text.*"%>
 
 <HTML>
 <HEAD>
@@ -101,7 +101,9 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
  			&& (username != "") && (password != "")) {
  		Connection conn = null;
  		try {
- 			conn = DBUtils.getInstanct().getConnection();
+ 			Class.forName("com.mysql.jdbc.Driver");
+ 			conn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
+ 			
  			String query = "select COUNT(*) from DS2.CUSTOMERS where USERNAME='" + username + "';";
  			Statement userqueryStatement = conn.createStatement(); // run query to check to see if username already exists
  			ResultSet userqueryResult = userqueryStatement.executeQuery(query);
@@ -244,7 +246,8 @@ dsnewcustomer.jsp JSP page that creates new user entry in ds database running on
 
  				Connection newuserconn = null;
  				try {
- 					newuserconn = DBUtils.getInstanct().getConnection();
+ 					Class.forName("com.mysql.jdbc.Driver");
+ 					newuserconn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
  					Statement userInsertStatement = newuserconn.createStatement(ResultSet.TYPE_FORWARD_ONLY,
  							ResultSet.CONCUR_UPDATABLE);
  					userInsertStatement.executeUpdate(insert_newuser_query, Statement.RETURN_GENERATED_KEYS);

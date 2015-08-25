@@ -8,7 +8,7 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 -->
 
 <%@ page language="java"
-	import="java.sql.*, java.math.*, java.io.*, java.text.*, java.util.* , com.ds2.*"%>
+	import="java.sql.*, java.math.*, java.io.*, java.text.*, java.util.* "%>
 
 <HTML>
 <HEAD>
@@ -76,7 +76,11 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 										+ item[i] + ";";
 
 								try {
-									Connection conn = DBUtils.getInstanct().getConnection();
+									Class.forName("com.mysql.jdbc.Driver");
+									Connection conn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
+									
+									
+									
 									Statement purchasequeryStatement = conn.createStatement();
 									ResultSet purchasequeryResult = purchasequeryStatement.executeQuery(purchase_query);
 									purchasequeryResult.next();
@@ -195,7 +199,9 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 									+ ";";
 
 							try {
-								Connection conn = DBUtils.getInstanct().getConnection();
+								
+								Class.forName("com.mysql.jdbc.Driver");
+								Connection conn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
 								Statement purchasequeryStatement = conn.createStatement();
 								ResultSet purchasequeryResult = purchasequeryStatement.executeQuery(purchase_query);
 								purchasequeryResult.next();
@@ -279,7 +285,8 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 							NumberFormat totals = NumberFormat.getInstance();
 							totals.setMaximumFractionDigits(2);
 							totals.setMinimumFractionDigits(2);
-							orderconn = DBUtils.getInstanct().getConnection();
+							Class.forName("com.mysql.jdbc.Driver");
+							orderconn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
 
 							orderconn.setAutoCommit(false); // tell connection to not commit until instructed
 							Statement purchaseupdateStatement = orderconn.createStatement();
@@ -305,7 +312,9 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 							while (h < item.length) {
 								j = h + 1;
 								query = "SELECT QUAN_IN_STOCK, SALES FROM DS2.INVENTORY WHERE PROD_ID=" + item[h] + ";";
-								Connection quanconn = DBUtils.getInstanct().getConnection();
+								Class.forName("com.mysql.jdbc.Driver");
+								Connection quanconn =  DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
+								
 								Statement quanquery = quanconn.createStatement(); // use quanconn instead of orderconn for simple quantity queries
 								ResultSet quanResult = quanquery.executeQuery(query);
 								quanResult.next();
@@ -387,7 +396,8 @@ dspurchase.jsp jsp page that purchases an order from the DVD store by entering t
 									+ customerid + ";";
 							Connection queryconn = null;
 							try {
-								queryconn = DBUtils.getInstanct().getConnection();
+								Class.forName("com.mysql.jdbc.Driver");
+								queryconn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
 								Statement ccqueryStatement = queryconn.createStatement();
 								ResultSet ccqueryResult = ccqueryStatement.executeQuery(cc_query);
 								ccqueryResult.next();

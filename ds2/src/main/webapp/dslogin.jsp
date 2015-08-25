@@ -11,8 +11,7 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 <%@ page import="java.io.*"%>
 <%@ page import="java.lang.*"%>
 
-<%@ page language="java"
-	import="java.sql.*, java.math.*, java.io.*,com.ds2.*"%>
+<%@ page language="java" import="java.sql.*, java.math.*, java.io.*"%>
 
 <HTML>
 <HEAD>
@@ -29,8 +28,8 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
  	{
  		Connection conn = null;
  		try {
-
- 			conn = DBUtils.getInstanct().getConnection();
+ 			Class.forName("com.mysql.jdbc.Driver");
+ 			conn = DriverManager.getConnection("jdbc:mysql://10.10.10.100/DS2?user=web&password=admin");
  			String query = "select CUSTOMERID FROM DS2.CUSTOMERS where USERNAME='" + username
  					+ "' and PASSWORD='" + password + "';";
  			Statement userqueryStatement = conn.createStatement();
@@ -133,7 +132,11 @@ dslogin.jsp JSP page that validates login to DVD store on mysql database
 							System.out.println("Error closing statement");
 						}
 					} catch (Exception e) {
-						System.out.println("Ravjot " + e.getMessage());
+						System.out.println("In dslogin");
+
+						for (StackTraceElement ste : e.getStackTrace()) {
+							System.out.println(ste);
+						}
 						System.out.println("Error opening connection");
 
 					} finally {
